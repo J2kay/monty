@@ -4,14 +4,16 @@ char *value_n;
 /**
  * f_read - reads lines from a file
  * @filename: file to read
+ * @count: line number
  * Return: pointer to a string
 */
-char *f_read(const char *filename)
+int f_read(const char *filename, int count)
 {
-	char *buffer = NULL, *content = NULL;
+	char *buffer = NULL, **content = NULL;
 	size_t buff_len = 0;
 	FILE *fd;
-	ssize_t status, size = 0;
+	ssize_t status;
+	stack_t *stack = NULL;
 
 	fd = fopen(filename, "r");
 	if (fd == NULL)
@@ -22,23 +24,20 @@ char *f_read(const char *filename)
 
 	while ((status = getline(&buffer, &buff_len, fd)) != -1)
 	{
-		content = realloc(content, size + status + 1);
-
+		content = line_parse2(buffer);
 		if (content == NULL)
 		{
 			fprintf(stderr, "Memory allocation error\n");
 			exit(EXIT_FAILURE);
 		}
-
-		memcpy(content + size, buffer, status);
-		size += status;
+		op_start(&stack, content, count);
+		count++;
 	}
 
-	content[size] = '\0';
 	fclose(fd);
 	free(buffer);
 
-	return (content);
+	return (0);
 }
 /**
  * op_start - checks for opcode then executes

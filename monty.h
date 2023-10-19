@@ -37,8 +37,7 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-
-char *f_read(const char *filename);
+int f_read(const char *filename, int count);
 void op_start(stack_t **stack, char **toks, int line);
 void push(stack_t **head, unsigned int line_number);
 void pall(stack_t **head, unsigned int line_number);

@@ -70,6 +70,7 @@ void add(stack_t **head, unsigned int line_number)
 	free(temp);
 }
 /**
+ * nop - does nothing
  * @head: pointer to the head of a list
  * @line_number: line number of the instruction
  * Return: void

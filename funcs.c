@@ -28,6 +28,8 @@ int f_read(const char *filename, int count)
 		if (content == NULL)
 		{
 			fprintf(stderr, "Memory allocation error\n");
+			free(buffer);
+			my_free(content);
 			exit(EXIT_FAILURE);
 		}
 		op_start(&stack, content, count);
@@ -36,7 +38,6 @@ int f_read(const char *filename, int count)
 
 	fclose(fd);
 	free(buffer);
-
 	return (0);
 }
 /**
@@ -101,7 +102,10 @@ void push(stack_t **head, unsigned int line_number)
 
 	newnode = malloc(sizeof(stack_t));
 	if (newnode == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed");
 		exit(EXIT_FAILURE);
+	}
 
 	if (*head == NULL)
 	{

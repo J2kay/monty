@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 /**
  * main - entry point for program
  * @argc: argument count
@@ -28,5 +28,6 @@ int main(int argc, char **argv)
 		op_start(&stack, tok_line, count);
 		count++;
 	}
+	free(file);
 	return (0);
 }

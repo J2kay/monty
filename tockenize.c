@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 /**
  * line_parse1 - tokenizes the lines read from the file
  * @s: pointer to a string

@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 /**
 * my_free - frees any allocated memory after use
 * @mem: pointer pointer to mem to be freed

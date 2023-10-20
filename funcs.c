@@ -24,7 +24,9 @@ int f_read(const char *filename, int count)
 
 	while ((status = getline(&buffer, &buff_len, fd)) != -1)
 	{
-		if (strlen(buffer) != 0)
+		if (buffer == NULL)
+			continue;
+		else
 		{
 			content = line_parse2(buffer);
 			if (content == NULL)
@@ -65,16 +67,15 @@ void op_start(stack_t **stack, char **toks, int line)
 		{"nop", nop}
 	};
 
-	if (strlen(*toks) > 1 && toks[1] != NULL)
-		value_n = toks[1];
-	else
-		value_n = NULL;
-
 	if (toks[0] == NULL)
 	{
 		fprintf(stderr, "L%d: unknown instruction %s\n", line, toks[0]);
 		exit(EXIT_FAILURE);
 	}
+	if (strlen(*toks) > 1 && toks[1] != NULL)
+		value_n = toks[1];
+	else
+		value_n = NULL;
 
 	for (i = 0; i < 7; i++)
 	{

@@ -24,14 +24,13 @@ int f_read(const char *filename, int count)
 
 	while ((status = getline(&buffer, &buff_len, fd)) != -1)
 	{
-		if (buffer == NULL)
+		if (blank_line(buffer) == 1)
 			continue;
 		else
 		{
 			content = line_parse2(buffer);
 			if (content == NULL)
 			{
-				fprintf(stderr, "Memory allocation error\n");
 				free(buffer);
 				free(content);
 				exit(EXIT_FAILURE);
@@ -67,12 +66,12 @@ void op_start(stack_t **stack, char **toks, int line)
 		{"nop", nop}
 	};
 
-	if (toks[0] == NULL)
+	if (toks[0] == NULL || toks[0][0] == '\0')
 	{
 		fprintf(stderr, "L%d: unknown instruction %s\n", line, toks[0]);
 		exit(EXIT_FAILURE);
 	}
-	if (strlen(*toks) > 1 && toks[1] != NULL)
+	if (toks[1] != NULL)
 		value_n = toks[1];
 	else
 		value_n = NULL;
@@ -125,7 +124,6 @@ void push(stack_t **head, unsigned int line_number)
 		newnode->next = (*head);
 		*head = newnode;
 	}
-
 }
 /**
  * pall - prints all the values on the stack

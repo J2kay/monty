@@ -51,4 +51,5 @@ void free_stack(stack_t *head);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 char **line_parse1(char *s);
 char **line_parse2(char *s);
+int blank_line(const char *line);
 #endif

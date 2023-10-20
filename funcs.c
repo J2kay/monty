@@ -33,7 +33,7 @@ int f_read(const char *filename, int count)
 				free(buffer);
 				free(content);
 				exit(EXIT_FAILURE);
-			}		
+			}
 			op_start(&stack, content, count);
 			free(content);
 		}

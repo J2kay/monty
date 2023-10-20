@@ -46,3 +46,25 @@ void pchar(stack_t **head, unsigned int line_number)
 	}
 	printf("%c\n", (*head)->n);
 }
+/**
+ * sub - subtracts the top element of the stack from the second top element
+ * @head: pointer to the head of a node list
+ * @line_number: line number
+ * Return: void
+ */
+void sub(stack_t **head, unsigned int line_number)
+{
+	stack_t *temp;
+	unsigned int sub;
+
+	if (*head == NULL || (*head)->next == NULL)
+	{
+		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	temp = *head;
+	sub = temp->next->n - temp->n;
+	temp->next->n = sub;
+	*head = temp->next;
+	free(temp);
+}

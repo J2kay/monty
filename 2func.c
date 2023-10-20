@@ -68,3 +68,30 @@ void sub(stack_t **head, unsigned int line_number)
 	*head = temp->next;
 	free(temp);
 }
+/**
+ * mod - computes the rest of the division of the second
+ *	top element of the stack by the top element
+ * @head: pointer to the head of a node list
+ * @line_number: line number
+ * Return: void
+ */
+void mod(stack_t **head, unsigned int line_number)
+{
+	stack_t *temp;
+
+	if (*head == NULL || (*head)->next == NULL)
+	{
+		fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	temp = *head;
+	if (temp->n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	temp->next->n = temp->next->n % temp->n;
+	*head = (*head)->next;
+	free(temp);
+}

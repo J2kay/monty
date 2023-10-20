@@ -64,7 +64,8 @@ void op_start(stack_t **stack, char **toks, int line)
 		{"swap", swap},
 		{"add", add},
 		{"nop", nop},
-		{"pstr", pstr}
+		{"pstr", pstr},
+		{"pchar", pchar}
 	};
 
 	if (toks[0] == NULL || toks[0][0] == '\0')
@@ -77,7 +78,7 @@ void op_start(stack_t **stack, char **toks, int line)
 	else
 		value_n = NULL;
 
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < 9; i++)
 	{
 		if (strcmp(toks[0], instructions[i].opcode) == 0)
 			instructions[i].f(stack, line);

@@ -63,7 +63,8 @@ void op_start(stack_t **stack, char **toks, int line)
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
-		{"nop", nop}
+		{"nop", nop},
+		{"pstr", pstr}
 	};
 
 	if (toks[0] == NULL || toks[0][0] == '\0')
@@ -76,7 +77,7 @@ void op_start(stack_t **stack, char **toks, int line)
 	else
 		value_n = NULL;
 
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 8; i++)
 	{
 		if (strcmp(toks[0], instructions[i].opcode) == 0)
 			instructions[i].f(stack, line);
@@ -108,6 +109,7 @@ void push(stack_t **head, unsigned int line_number)
 	if (newnode == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed");
+		free(newnode);
 		exit(EXIT_FAILURE);
 	}
 

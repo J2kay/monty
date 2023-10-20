@@ -46,6 +46,7 @@ void pop(stack_t **head, unsigned int line_number);
 void swap(stack_t **head, unsigned int line_number);
 void add(stack_t **head, unsigned int line_number);
 void nop(stack_t **head, unsigned int line_number);
+void pstr(stack_t **head, unsigned int line_number);
 void my_free(char **mem);
 void free_stack(stack_t *head);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);

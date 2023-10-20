@@ -24,15 +24,19 @@ int f_read(const char *filename, int count)
 
 	while ((status = getline(&buffer, &buff_len, fd)) != -1)
 	{
-		content = line_parse2(buffer);
-		if (content == NULL)
+		if (strlen(buffer) != 0)
 		{
-			fprintf(stderr, "Memory allocation error\n");
-			free(buffer);
-			my_free(content);
-			exit(EXIT_FAILURE);
+			content = line_parse2(buffer);
+			if (content == NULL)
+			{
+				fprintf(stderr, "Memory allocation error\n");
+				free(buffer);
+				free(content);
+				exit(EXIT_FAILURE);
+			}		
+			op_start(&stack, content, count);
+			free(content);
 		}
-		op_start(&stack, content, count);
 		count++;
 	}
 

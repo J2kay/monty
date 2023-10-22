@@ -43,6 +43,7 @@ int f_read(const char *filename, int count)
 
 	fclose(fd);
 	free(buffer);
+	free(stack);
 	return (0);
 }
 /**
@@ -70,18 +71,13 @@ void op_start(stack_t **stack, char **toks, int line)
 		{"mod", mod}
 	};
 
-	if (toks[0] == NULL || toks[0][0] == '\0')
+	if (toks[1] != NULL)
 	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", line, toks[0]);
-		exit(EXIT_FAILURE);
-	}
-	if (toks[1] != NULL && atoi(toks[1]) != 0)
 		value_n = toks[1];
+	}
 	else
 	{
-		fprintf(stderr, "L%d:usage:push integer\n", line);
 		value_n = NULL;
-		exit(EXIT_FAILURE);
 	}
 	for (i = 0; i < 11; i++)
 	{
@@ -105,7 +101,7 @@ void push(stack_t **head, unsigned int line_number)
 {
 	stack_t  *newnode;
 
-	if (value_n != NULL && strcmp("0", value_n) != 0  && atoi(value_n) == 0)
+	if (value_n == NULL || (strcmp("0", value_n) != 0  && atoi(value_n) == 0))
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);

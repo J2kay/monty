@@ -75,11 +75,14 @@ void op_start(stack_t **stack, char **toks, int line)
 		fprintf(stderr, "L%d: unknown instruction %s\n", line, toks[0]);
 		exit(EXIT_FAILURE);
 	}
-	if (toks[1] != NULL)
+	if (toks[1] != NULL && atoi(toks[1]) != 0)
 		value_n = toks[1];
 	else
+	{
+		fprintf(stderr, "L%d:usage:push integer\n", line);
 		value_n = NULL;
-
+		exit(EXIT_FAILURE);
+	}
 	for (i = 0; i < 11; i++)
 	{
 		if (strcmp(toks[0], instructions[i].opcode) == 0)

@@ -43,7 +43,7 @@ int f_read(const char *filename, int count)
 
 	fclose(fd);
 	free(buffer);
-	free(stack);
+	free_stack(stack);
 	return (0);
 }
 /**
@@ -82,8 +82,10 @@ void op_start(stack_t **stack, char **toks, int line)
 	for (i = 0; i < 11; i++)
 	{
 		if (strcmp(toks[0], instructions[i].opcode) == 0)
+		{
 			instructions[i].f(stack, line);
-		instruction_found = 1;
+			instruction_found = 1;
+		}
 	}
 	if (!instruction_found)
 	{
@@ -103,7 +105,7 @@ void push(stack_t **head, unsigned int line_number)
 
 	if (value_n == NULL || (strcmp("0", value_n) != 0  && atoi(value_n) == 0))
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		fprintf(stderr, "L%d: usage: push integer", line_number);
 		exit(EXIT_FAILURE);
 	}
 

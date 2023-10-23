@@ -50,6 +50,7 @@ void pstr(stack_t **head, unsigned int line_number);
 void pchar(stack_t **head, unsigned int line_number);
 void sub(stack_t **head, unsigned int line_number);
 void mod(stack_t **head, unsigned int line_number);
+void rotl(stack_t **head, unsigned int line_number);
 void my_free(char **mem);
 void free_stack(stack_t *head);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);

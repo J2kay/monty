@@ -81,3 +81,30 @@ void nop(stack_t **head, unsigned int line_number)
 	(void)head;
 	(void)line_number;
 }
+/**
+* rotl- rotates the stack to the top
+* @head: stack head
+* @line_number: line_number
+* Return: void
+*/
+void rotl(stack_t **head, unsigned int line_number)
+{
+	stack_t *temp, *flip;
+	(void)line_number;
+
+	if (*head == NULL || (*head)->next == NULL)
+	{
+		return;
+	}
+	temp = *head;
+	flip = (*head)->next;
+	flip->prev = NULL;
+	while (temp->next != NULL)
+	{
+		temp = temp->next;
+	}
+	temp->next = *head;
+	(*head)->next = NULL;
+	(*head)->prev = temp;
+	(*head) = flip;
+}

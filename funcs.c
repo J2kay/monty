@@ -69,7 +69,8 @@ void op_start(stack_t **stack, char **toks, int line)
 		{"pstr", pstr},
 		{"pchar", pchar},
 		{"sub", sub},
-		{"mod", mod}
+		{"mod", mod},
+		{"rotl", rotl}
 	};
 
 	if (toks[1] != NULL)
@@ -80,7 +81,7 @@ void op_start(stack_t **stack, char **toks, int line)
 	{
 		value_n = NULL;
 	}
-	for (i = 0; i < 11; i++)
+	for (i = 0; i < 12; i++)
 	{
 		if (strcmp(toks[0], instructions[i].opcode) == 0)
 		{

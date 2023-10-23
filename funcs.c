@@ -24,21 +24,22 @@ int f_read(const char *filename, int count)
 
 	while ((status = getline(&buffer, &buff_len, fd)) != -1)
 	{
-		if (blank_line(buffer) == 1)
+		if (blank_line(buffer) == 1 || buffer[0] == '#')
 			continue;
 		else
 		{
 			content = line_parse2(buffer);
 			if (content == NULL)
 			{
+				fprintf(stderr, "L%d: unknown instruction %s\n", count, content[0]);
 				free(buffer);
 				free(content);
 				exit(EXIT_FAILURE);
 			}
 			op_start(&stack, content, count);
 			free(content);
+			count++;
 		}
-		count++;
 	}
 
 	fclose(fd);
@@ -105,7 +106,7 @@ void push(stack_t **head, unsigned int line_number)
 
 	if (value_n == NULL || (strcmp("0", value_n) != 0  && atoi(value_n) == 0))
 	{
-		fprintf(stderr, "L%d: usage: push integer", line_number);
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
